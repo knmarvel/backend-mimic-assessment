@@ -7,6 +7,7 @@
 
 # Google's Python Class
 # http://code.google.com/edu/languages/google-python-class/
+# Kano's notes: I spent 2 hrs on with this assignment.
 
 """Mimic pyquick exercise -- optional extra exercise.
 Google's Python Class
@@ -70,8 +71,9 @@ def create_mimic_dict(filename):
             }
     """
     mimic_dict = {"": []}
-    words_list = [x for x in filename.split(" ")]
-    print(words_list[-1])
+    words = open(filename, "r")
+    words = words.read()
+    words_list = [x for x in words.split(" ")]
     for x in words_list:
         mimic_dict[x] = []
     mimic_dict.pop(words_list[-1])
@@ -80,6 +82,7 @@ def create_mimic_dict(filename):
             mimic_dict[x] = words_list[0]
         for y in range(len(words_list)):
             if words_list[y] == x:
+                mimic_dict[x] = list(mimic_dict[x])
                 mimic_dict[x].append(words_list[y + 1])
     return(mimic_dict)
 
