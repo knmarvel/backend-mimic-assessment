@@ -47,9 +47,6 @@ import random
 import sys
 
 
-imdev = open("imdev.txt", "r")
-imdev = imdev.read()
-
 __author__ = "github.com/knmarvel"
 
 
@@ -87,26 +84,31 @@ def create_mimic_dict(filename):
     return(mimic_dict)
 
 
-# def print_mimic(mimic_dict, start_word):
-#     """Given a previously compiled mimic_dict and start_word, prints 200 random words:
-#         - Print the start_word
-#         - Lookup the start_word in your mimic_dict and get it's next-list
-#         - Randomly select a new word from the next-list
-#         - Repeat this process 200 times
-#     """
-#     # +++your code here+++
-#     pass
+def print_mimic(mimic_dict, start_word):
+    """Given a previously compiled mimic_dict and start_word, prints 200 random words:
+        - Print the start_word
+        - Lookup the start_word in your mimic_dict and get it's next-list
+        - Randomly select a new word from the next-list
+        - Repeat this process 200 times
+    """
+    for x in range(200):
+        print(start_word)
+        if start_word in list(mimic_dict.keys()):
+            start_word = random.choice(mimic_dict[start_word])
+        else:
+            start_word = ""
 
 
 # # Provided main(), calls mimic_dict() and mimic()
-# def main():
-#     if len(sys.argv) != 2:
-#         print 'usage: python mimic.py file-to-read'
-#         sys.exit(1)
+def main():
+    print(sys.argv)
+    if len(sys.argv) != 2:
+        print ('usage: python mimic.py file-to-read')
+        sys.exit(1)
 
-#     d = create_mimic_dict(sys.argv[1])
-#     print_mimic(d, '')
+    d = create_mimic_dict(sys.argv[1])
+    print_mimic(d, '')
 
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
