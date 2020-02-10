@@ -50,9 +50,6 @@ import sys
 imdev = open("imdev.txt", "r")
 imdev = imdev.read()
 
-
-print(imdev)
-
 __author__ = "github.com/knmarvel"
 
 
@@ -89,8 +86,6 @@ def create_mimic_dict(filename):
                 mimic_dict[x].append(words_list[y + 1])
     return(mimic_dict)
 
-
-print(create_mimic_dict(imdev))
 
 # def print_mimic(mimic_dict, start_word):
 #     """Given a previously compiled mimic_dict and start_word, prints 200 random words:
