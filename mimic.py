@@ -70,9 +70,10 @@ def create_mimic_dict(filename):
                 "who" : ["knows"]
             }
     """
-    mimic_dict = {"": []}
+    mimic_dict = {}
     with open(filename, "r") as words:
         words = words.read()
+    words = words.replace("\n", " ")
     words_list = [x for x in words.split(" ")]
     for x in words_list:
         mimic_dict[x] = []
@@ -84,6 +85,7 @@ def create_mimic_dict(filename):
             if words_list[y] == x:
                 mimic_dict[x] = list(mimic_dict[x])
                 mimic_dict[x].append(words_list[y + 1])
+    mimic_dict[""] = words_list[0]
     return(mimic_dict)
 
 
@@ -94,12 +96,16 @@ def print_mimic(mimic_dict, start_word):
         - Randomly select a new word from the next-list
         - Repeat this process 200 times
     """
+    new_thoughts = [mimic_dict[start_word]]
+    start_word = mimic_dict[start_word]
     for x in range(200):
-        print(start_word)
         if start_word in list(mimic_dict.keys()):
             start_word = random.choice(mimic_dict[start_word])
         else:
-            start_word = ""
+            start_word = mimic_dict[""]
+        if start_word == "I" or start_word == "O" or start_word == "a" or len(start_word) > 1:
+            new_thoughts.append(start_word)
+    print(" ".join(new_thoughts))
 
 
 # # Provided main(), calls mimic_dict() and mimic()
