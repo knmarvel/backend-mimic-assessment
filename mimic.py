@@ -71,8 +71,8 @@ def create_mimic_dict(filename):
             }
     """
     mimic_dict = {"": []}
-    words = open(filename, "r")
-    words = words.read()
+    with open(filename, "r") as words:
+        words = words.read()
     words_list = [x for x in words.split(" ")]
     for x in words_list:
         mimic_dict[x] = []
