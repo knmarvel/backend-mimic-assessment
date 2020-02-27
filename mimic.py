@@ -52,14 +52,14 @@ __author__ = "github.com/knmarvel"
 
 
 def create_mimic_dict(filename):
-    """Returns mimic dict mapping each word to list of words which follow it. 
+    """Returns mimic dict mapping each word to list of words which follow it.
     For example:
         Input: "I am a software developer, and I don't care who knows"
-        Output: 
+        Output:
             {
                 "" : ["I"],
-                "I" : ["am", "don't"], 
-                "am": ["a"], 
+                "I" : ["am", "don't"],
+                "am": ["a"],
                 "a": ["software"],
                 "software" : ["developer,"],
                 "developer," : ["and"],
@@ -73,24 +73,23 @@ def create_mimic_dict(filename):
     mimic_dict = {}
     with open(filename, "r") as words:
         words = words.read()
-    words = words.replace("\n", " ")
-    words_list = [x for x in words.split(" ")]
-    for x in words_list:
-        mimic_dict[x] = []
+    words_list = [x for x in words.split()]
+    for word in words_list:
+        mimic_dict[word] = []
     mimic_dict.pop(words_list[-1])
-    for x in mimic_dict:
-        if x == "":
-            mimic_dict[x] = words_list[0]
-        for y in range(len(words_list)):
-            if words_list[y] == x:
-                mimic_dict[x] = list(mimic_dict[x])
-                mimic_dict[x].append(words_list[y + 1])
+    for word in mimic_dict:
+        if word == "":
+            mimic_dict[word] = words_list[0]
+        for index in range(len(words_list)):
+            if words_list[index] == word:
+                mimic_dict[word] = list(mimic_dict[word])
+                mimic_dict[word].append(words_list[index + 1])
     mimic_dict[""] = words_list[0]
     return(mimic_dict)
 
 
 def print_mimic(mimic_dict, start_word):
-    """Given a previously compiled mimic_dict and start_word, prints 200 random words:
+    """Given a previouslycompiled mimic_dict & start_word,prints 200 random words:
         - Print the start_word
         - Lookup the start_word in your mimic_dict and get it's next-list
         - Randomly select a new word from the next-list
@@ -98,13 +97,12 @@ def print_mimic(mimic_dict, start_word):
     """
     new_thoughts = [mimic_dict[start_word]]
     start_word = mimic_dict[start_word]
-    for x in range(200):
+    for counter in range(200):
         if start_word in list(mimic_dict.keys()):
             start_word = random.choice(mimic_dict[start_word])
         else:
             start_word = mimic_dict[""]
-        if start_word == "I" or start_word == "O" or start_word == "a" or len(start_word) > 1:
-            new_thoughts.append(start_word)
+        new_thoughts.append(start_word)
     print(" ".join(new_thoughts))
 
 
